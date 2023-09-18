@@ -1,6 +1,8 @@
 import React from 'react';
 
 import PhotoListItem from './components/PhotoListItem';
+import PhotoFavButton from './components/PhotoFavButton';
+
 import './App.scss';
 
 // Define an array of photo data objects
@@ -41,17 +43,22 @@ const sampleDataForPhotoListItems = [
 const App = () => {
 
   const photoItems = sampleDataForPhotoListItems.map((photo) => (
-    <PhotoListItem
-      key={photo.id} // a unique key
-      location={`${photo.location.city}, ${photo.location.country}`}
-      imageSource={photo.imageSource}
-      username={photo.username}
-      profile={photo.profile}
-    />
-  ));
+    <div key={photo.id} className="photo-list-item">
+      <PhotoListItem
+        location={`${photo.location.city}, ${photo.location.country}`}
+        imageSource={photo.imageSource}
+        username={photo.username}
+        profile={photo.profile}
+      />
+      <PhotoFavButton />
+    </div>
+  ));``
+
   return (
     <div className="App">
+
       {photoItems}
+
     </div>
   );
 };
