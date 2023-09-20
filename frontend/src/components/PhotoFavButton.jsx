@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import FavIcon from './FavIcon';
 import '../styles/PhotoFavButton.scss';
 
-function PhotoFavButton({ initialSelected = false }) {
+function PhotoFavButton({ initialSelected = false , photoId, toggleFavorite}) {
   const [selected, setSelected] = useState(initialSelected);
 
   // Toggle the selected state when the icon is clicked
   const handleIconClick = () => {
+    toggleFavorite(photoId);
     setSelected(!selected);
   };
 

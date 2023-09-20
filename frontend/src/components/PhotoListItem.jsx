@@ -7,9 +7,9 @@ const PhotoListItem = ({data, toggleFavorite, favoritePhotos}) => {
 
   const isFavorite = favoritePhotos.includes(data.id);
 
-  const handleFavoriteClick = () =>{
-       toggleFavorite(data.id);
-  };
+  // const handleFavoriteClick = () =>{
+  //      toggleFavorite(data.id);
+  // };
 
   return (
     <div className="photo-list__item">
@@ -32,7 +32,8 @@ const PhotoListItem = ({data, toggleFavorite, favoritePhotos}) => {
       </span>
       <PhotoFavButton
         initialSelected={isFavorite}
-        onClick={handleFavoriteClick}
+        photoId={data.id}
+        toggleFavorite={toggleFavorite}
       />
     </div>
   </div>
