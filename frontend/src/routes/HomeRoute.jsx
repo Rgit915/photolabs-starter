@@ -5,7 +5,7 @@ import TopNavigationBar from 'components/TopNavigationBar';
 import PhotoList from 'components/PhotoList';
 
 
-const HomeRoute = ({ photos, topics }) => {
+const HomeRoute = ({ photos, topics, onPhotoClick }) => {
   const [favoritePhotos, setFavoritePhotos] = useState([]);
 
   // Calculate the count of liked photos
@@ -26,7 +26,7 @@ const HomeRoute = ({ photos, topics }) => {
     <div className="home-route">
       {/* Insert React */}
       <TopNavigationBar topics={topics} favoritePhotosCount={favoritePhotosCount}/>
-       <PhotoList photos={photos} toggleFavorite={toggleFavorite} favoritePhotos={favoritePhotos}/>
+       <PhotoList photos={photos} toggleFavorite={toggleFavorite} favoritePhotos={favoritePhotos} onPhotoClick={onPhotoClick}/>
     </div>
   );
 };
