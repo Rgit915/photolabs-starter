@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 
 import './App.scss';
 import HomeRoute from 'routes/HomeRoute';
 import PhotoDetailsModal from "routes/PhotoDetailsModal";
+import useApplicationData from "hooks/useApplicationData";
 
 // Import the mock data
 import topics from "mocks/topics";
@@ -12,51 +13,45 @@ import photos from "mocks/photos";
 
 const App = () => {
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedPhoto, setSelectedPhoto] = useState(null);
-  const [favoritePhotos, setFavoritePhotos] = useState([]);
+  //Initialize the custom hook
+  //Destructure the returned values from custom hook'useApplicationData'
+  const {
+    state,
+    updateToFavPhotoIds,
+    setPhotoSelected,
+    onClosePhotoDetailsModal,
+  } = useApplicationData();
 
-  const openModal = (photoDetails) => {
-    setSelectedPhoto(photoDetails);
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setSelectedPhoto(null);
-    setIsModalOpen(false);
-  };
+  const { showModal, clickedPhoto, favoritedPhotos } = state;
+  const setShowModal = setPhotoSelected;
+  const setClickedPhoto = setPhotoSelected;
+  const setFavoritedPhotos = updateToFavPhotoIds;
 
   // Calculate the count of liked photos
-  const favoritePhotosCount = favoritePhotos.length;
-
-  const toggleFavorite = (photoId) => {
-    if (favoritePhotos.includes(photoId)) {
-      // If the photo is already a favorite, remove it from the list
-      const updatedFavorites = favoritePhotos.filter(id => id !== photoId);
-      setFavoritePhotos(updatedFavorites);
-    } else {
-      // If the photo is not a favorite, add it to the list
-      setFavoritePhotos([...favoritePhotos, photoId]);
-    }
-  };
+  const favoritePhotosCount = favoritedPhotos.length;
 
   return (
+
     <div className="App">
+
       {/* Pass mock data to HomeRoute */}
       <HomeRoute topics={topics}
-       photos={photos}
-       onPhotoClick={openModal}
-       toggleFavorite={toggleFavorite}
-       favoritePhotos={favoritePhotos}
+        photos={photos}
+        onPhotoClick={setShowModal}
+        toggleFavorite={setFavoritedPhotos}
+        favoritePhotos={favoritedPhotos}
         favoritePhotosCount={favoritePhotosCount}
-        />
-      {isModalOpen &&
+
+      />
+
+      {/* If showModal is true, render the modal */}
+      {showModal &&
         (<PhotoDetailsModal
-        isOpen={isModalOpen}
-        onClose={closeModal}
-        photoDetails={selectedPhoto}
-        toggleFavorite={toggleFavorite}
-        favoritePhotos={favoritePhotos}
+          isOpen={showModal}
+          onClose={onClosePhotoDetailsModal}
+          photoDetails={clickedPhoto}
+          toggleFavorite={setFavoritedPhotos}
+          favoritePhotos={favoritedPhotos}
         />)}
     </div>
   );
