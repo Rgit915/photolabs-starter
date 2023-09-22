@@ -5,7 +5,7 @@ import closeSymbol from '../assets/closeSymbol.svg';
 import PhotoListItem from 'components/PhotoListItem';
 
 
-const PhotoDetailsModal = ({ onClose, photoDetails }) => {
+const PhotoDetailsModal = ({ onClose, photoDetails, toggleFavorite, favoritePhotos }) => {
 
   const { urls, user, location, similar_photos } = photoDetails;
 
@@ -52,7 +52,8 @@ const PhotoDetailsModal = ({ onClose, photoDetails }) => {
           <PhotoListItem
             key={photoData.id}
             data={photoData}
-
+            toggleFavorite={toggleFavorite}
+favoritePhotos={favoritePhotos}
           />
         ))}
       </ul>
