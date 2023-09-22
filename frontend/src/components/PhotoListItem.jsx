@@ -5,7 +5,7 @@ import PhotoFavButton from "./PhotoFavButton";
 
 const PhotoListItem = ({data, toggleFavorite, favoritePhotos, onPhotoClick}) => {
 
-  const isFavorite = favoritePhotos.includes(data.id);
+  const isFavorite = favoritePhotos && favoritePhotos.includes(data.id)
 
   // const handleFavoriteClick = () =>{
   //      toggleFavorite(data.id);

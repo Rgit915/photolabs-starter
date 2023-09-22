@@ -2,17 +2,14 @@ import React from 'react';
 
 import '../styles/PhotoDetailsModal.scss';
 import closeSymbol from '../assets/closeSymbol.svg';
-import PhotoList from 'components/PhotoList';
+import PhotoListItem from 'components/PhotoListItem';
 
 
-const PhotoDetailsModal = ({ onClose, photoDetails, }) => {
+const PhotoDetailsModal = ({ onClose, photoDetails }) => {
 
-  const { urls, user, location, similar_photos } = photoDetails; // Destructure relevant data
+  const { urls, user, location, similar_photos } = photoDetails;
 
 
-  // const {  } = photoDetails; // Get similar photo references
-  console.log("phodetailsimilar_photos-------->", similar_photos);
-  //  console.log("Similar Photos:", similar_photos);
   // Convert similar_photos object into an array of photo objects
   const similarPhotosArray = Object.values(similar_photos);
 
@@ -22,11 +19,17 @@ const PhotoDetailsModal = ({ onClose, photoDetails, }) => {
         <img src={closeSymbol} alt="close symbol" />
       </button>
       <div className="photo-details-modal__images">
-        {/* Display image in full size  */}
-        <img src={urls.regular} alt={`Photo by ${user.name}`} className="photo-details-modal__image" />
+
+        {/* Display image within modal in large version  */}
+        <img
+          src={urls.regular}
+          alt={`Photo by ${user.name}`}
+          className="photo-details-modal__image"
+        />
 
       </div>
 
+      {/* Display user-profile */}
       <div className="photo-list__user-details">
         <img
           className="photo-list__user-profile"
@@ -43,10 +46,16 @@ const PhotoDetailsModal = ({ onClose, photoDetails, }) => {
 
       <h2 className="photo-details-modal__header">Similar Photos</h2>
 
-      {/* Reuse PhotoList for similar photos */}
+      {/* Display similar photos */}
+      <ul className="photo-list">
+        {similarPhotosArray.map((photoData) => (
+          <PhotoListItem
+            key={photoData.id}
+            data={photoData}
 
-      {/* Now you can pass similarPhotosArray to the PhotoList component */}
-      {/* <PhotoList photos={similarPhotosArray} /> */}
+          />
+        ))}
+      </ul>
     </div>
 
   );
