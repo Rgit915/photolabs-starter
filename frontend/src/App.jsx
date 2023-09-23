@@ -5,11 +5,6 @@ import HomeRoute from 'routes/HomeRoute';
 import PhotoDetailsModal from "routes/PhotoDetailsModal";
 import useApplicationData from "hooks/useApplicationData";
 
-// Import the mock data
-import topics from "mocks/topics";
-import photos from "mocks/photos";
-
-
 
 const App = () => {
 
@@ -35,8 +30,8 @@ const App = () => {
     <div className="App">
 
       {/* Pass mock data to HomeRoute */}
-      <HomeRoute topics={topics}
-        photos={photos}
+      <HomeRoute topics={state.topicData}
+        photos={state.photoData}
         onPhotoClick={setShowModal}
         toggleFavorite={setFavoritedPhotos}
         favoritePhotos={favoritedPhotos}

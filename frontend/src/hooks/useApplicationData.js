@@ -1,6 +1,6 @@
 // CUSTOM REACT HOOK - manage the state for this application
 
-import {  useReducer } from "react";
+import {  useReducer, useEffect } from "react";
 
 // Define action types as constants for use in the reducer
 export const ACTIONS = {
@@ -11,7 +11,6 @@ export const ACTIONS = {
   SELECT_PHOTO: 'SELECT_PHOTO',
   DISPLAY_PHOTO_DETAILS: 'DISPLAY_PHOTO_DETAILS',
 };
-
 //Reducer function to handle state changes based on actions
 function reducer(state, action) {
   switch (action.type) {
@@ -45,6 +44,8 @@ function reducer(state, action) {
          showModal: false,
         clickedPhoto: null
       };
+      case ACTIONS.SET_PHOTO_DATA:
+    return { ...state, photoData: action.payload };
 
 
     default:
@@ -62,9 +63,15 @@ const useApplicationData = () => {
     showModal: false,
     clickedPhoto: null,
     favoritedPhotos: [], // Holds the IDs of favorited photos
-    // photos:
-    // topics:
+    photoData: [], // photos:
+    topicData: []  // topics:
   });
+
+  useEffect(() => {
+    fetch("/api/photos")
+      .then((response) => response.json())
+      .then((data) => dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: data }))
+  }, []);
 
   // Functions for dispatching actions
   /* Function to set a photo as selected*/
