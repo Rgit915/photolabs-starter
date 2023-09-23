@@ -47,6 +47,8 @@ function reducer(state, action) {
       case ACTIONS.SET_PHOTO_DATA:
     return { ...state, photoData: action.payload };
 
+    case ACTIONS.SET_TOPIC_DATA:
+      return { ...state, topicData: action.payload };
 
     default:
       throw new Error(
@@ -63,14 +65,22 @@ const useApplicationData = () => {
     showModal: false,
     clickedPhoto: null,
     favoritedPhotos: [], // Holds the IDs of favorited photos
-    photoData: [], // photos:
-    topicData: []  // topics:
+    photoData: [],
+    topicData: []
   });
 
   useEffect(() => {
+
+    // Fetch Photo data
     fetch("/api/photos")
       .then((response) => response.json())
-      .then((data) => dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: data }))
+      .then((data) => dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: data }));
+
+
+      // Fetch topic data
+    fetch("/api/topics")
+    .then((response) => response.json())
+    .then((data) => dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: data }));
   }, []);
 
   // Functions for dispatching actions
@@ -94,25 +104,12 @@ const useApplicationData = () => {
     });
   };
 
-  // // Function to set photo data
-  // const setPhotoFunction = () => {
-
-  // };
-
-  //  // Function to set photo data
-  //  const setTopicFunction = () => {
-
-  //  };
-
   // Hook returns an object containing current state and the three functions to interact with
   return {
     state,
     setPhotoSelected,
     updateToFavPhotoIds,
     onClosePhotoDetailsModal,
-    // Add  functions for setting photo and topic data
-    // setPhotoFunction,
-    // setTopicFunction,
   };
 };
 
