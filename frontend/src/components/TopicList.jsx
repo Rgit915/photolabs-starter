@@ -4,18 +4,18 @@ import "../styles/TopicList.scss";
 import TopicListItem from "./TopicListItem";
 
 
-const TopicList = ({ topics }) => {
+const TopicList = ({ topics, fetchPhotosByTopic }) => {
   if (!topics) {
-    return null; // or display a loading message
+    return null;
   }
   return (
     <div className="top-nav-bar__topic-list">
       {/* Insert React */}
 
       {topics.map((topicData) => (
-        <TopicListItem key={topicData.id} data={topicData} />
+        <TopicListItem key={topicData.id} data={topicData} fetchPhotosByTopic={fetchPhotosByTopic} />
       ))}
-   </div>
+    </div>
   );
 };
 

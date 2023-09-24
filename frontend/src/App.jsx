@@ -15,14 +15,13 @@ const App = () => {
     updateToFavPhotoIds,
     setPhotoSelected,
     onClosePhotoDetailsModal,
+    fetchPhotosByTopic
   } = useApplicationData();
 
   const { showModal, clickedPhoto, favoritedPhotos } = state;
   const setShowModal = setPhotoSelected;
   //const setClickedPhoto = setPhotoSelected;
   const setFavoritedPhotos = updateToFavPhotoIds;
-  const photos = state.photoData;
-  const topics = state.topicData;
 
   // Calculate the count of liked photos
   const favoritePhotosCount = favoritedPhotos.length;
@@ -32,13 +31,14 @@ const App = () => {
     <div className="App">
 
       {/* Pass mock data to HomeRoute */}
-      <HomeRoute topics={topics}
-        photos={photos}
+      <HomeRoute
+        topics={state.topicData}
+        photos={state.photoData}
         onPhotoClick={setShowModal}
         toggleFavorite={setFavoritedPhotos}
         favoritePhotos={favoritedPhotos}
         favoritePhotosCount={favoritePhotosCount}
-
+        fetchPhotosByTopic={fetchPhotosByTopic}
       />
 
       {/* If showModal is true, render the modal */}
