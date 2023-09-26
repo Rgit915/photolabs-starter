@@ -1,5 +1,3 @@
-// CUSTOM REACT HOOK - manage the state for this application
-
 import { useEffect, useReducer } from "react";
 
 // Define action types as constants for use in the reducer
@@ -10,7 +8,6 @@ export const ACTIONS = {
   SET_TOPIC_DATA: 'SET_TOPIC_DATA',
   SELECT_PHOTO: 'SELECT_PHOTO',
   DISPLAY_PHOTO_DETAILS: 'DISPLAY_PHOTO_DETAILS',
-  GET_PHOTOS_BY_TOPIC: 'GET_PHOTOS_BY_TOPIC'
 };
 
 //Reducer function to handle state changes based on actions
@@ -52,12 +49,6 @@ function reducer(state, action) {
     case ACTIONS.SET_TOPIC_DATA:
       return { ...state, topicData: action.payload };
 
-    case ACTIONS.GET_PHOTOS_BY_TOPIC:
-      return {
-        ...state,
-        photosByTopic: action.payload,
-      };
-
     default:
       throw new Error(
         `Tried to reduce with unsupported action type: ${action.type}`
@@ -72,27 +63,16 @@ const useApplicationData = () => {
   const [state, dispatch] = useReducer(reducer, {
     showModal: false,
     clickedPhoto: null,
-    favoritedPhotos: [], // Holds the IDs of favorited photos
+    favoritedPhotos: [],
     photoData: [],
     topicData: [],
-    photosByTopic: [], // Initialize an empty array for photos by topic
+    photosByTopic: [],
 
   });
 
+  // Functions for dispatching actions
 
-  const fetchPhotosByTopic = (topicId) => {
-    return fetch(`/api/topics/photos/${topicId}`)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("data", data);
-        return dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: data });
-        // This gets returned as 'res' in handleClick above
-      })
-      .catch((error) => console.error('Error:', error));
-  };
-
-
-  useEffect(() => {
+   useEffect(() => {
 
     // Fetch Photo data
     fetch("/api/photos")
@@ -108,18 +88,29 @@ const useApplicationData = () => {
 
   }, []);
 
-  // Functions for dispatching actions
-  /* Function to set a photo as selected*/
+  // Fetch photos by categories or topics
+  const fetchPhotosByTopic = (topicId) => {
+    return fetch(`/api/topics/photos/${topicId}`)
+      .then((response) => response.json())
+      .then((data) => {
+
+        return dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: data });
+
+      })
+      .catch((error) => console.error('Error:', error));
+  };
+
+   // Function to set a photo as selected
   const setPhotoSelected = (photo) => {
     dispatch({ type: ACTIONS.SELECT_PHOTO, photo });
   };
 
-  /*Function to close the photo details modal*/
+  // Function to close the photo details modal
   const onClosePhotoDetailsModal = () => {
     dispatch({ type: ACTIONS.DISPLAY_PHOTO_DETAILS });
   };
 
-  /*Function to update the list of favorited photos*/
+  //Function to update the list of favorited photos
   const updateToFavPhotoIds = (photoId) => {
     dispatch({
       type: state.favoritedPhotos.includes(photoId)
@@ -129,7 +120,7 @@ const useApplicationData = () => {
     });
   };
 
-  // Hook returns an object containing current state and the three functions to interact with
+  // Hook returns an object containing current state and functions to interact with
   return {
     state,
     setPhotoSelected,

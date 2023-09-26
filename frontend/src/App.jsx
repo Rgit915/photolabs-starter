@@ -19,9 +19,6 @@ const App = () => {
   } = useApplicationData();
 
   const { showModal, clickedPhoto, favoritedPhotos } = state;
-  const setShowModal = setPhotoSelected;
-  //const setClickedPhoto = setPhotoSelected;
-  const setFavoritedPhotos = updateToFavPhotoIds;
 
   // Calculate the count of liked photos
   const favoritePhotosCount = favoritedPhotos.length;
@@ -29,13 +26,12 @@ const App = () => {
   return (
 
     <div className="App">
-
-      {/* Pass mock data to HomeRoute */}
+{/* Render the 'HomeRoute' component and pass relevant props. */}
       <HomeRoute
         topics={state.topicData}
         photos={state.photoData}
-        onPhotoClick={setShowModal}
-        toggleFavorite={setFavoritedPhotos}
+        onPhotoClick={setPhotoSelected}
+        toggleFavorite={updateToFavPhotoIds}
         favoritePhotos={favoritedPhotos}
         favoritePhotosCount={favoritePhotosCount}
         fetchPhotosByTopic={fetchPhotosByTopic}
@@ -47,8 +43,9 @@ const App = () => {
           isOpen={showModal}
           onClose={onClosePhotoDetailsModal}
           photoDetails={clickedPhoto}
-          toggleFavorite={setFavoritedPhotos}
+          toggleFavorite={updateToFavPhotoIds}
           favoritePhotos={favoritedPhotos}
+
         />)}
     </div>
   );

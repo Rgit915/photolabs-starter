@@ -6,9 +6,10 @@ import '../styles/FavBadge.scss';
 const FavBadge = ({ isFavPhotoExist }) => {
   return (
     <div className='fav-badge'>
-      <FavIcon displayAlert={isFavPhotoExist} selected={true}/>
+      {/* Render the 'FavIcon' component with the 'displayAlert' and 'selected' props. */}
+      <FavIcon displayAlert={isFavPhotoExist} selected={true} />
     </div>
-  )
+  );
 };
 
 export default FavBadge;

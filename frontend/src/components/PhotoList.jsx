@@ -8,13 +8,14 @@ const PhotoList = ({ photos, toggleFavorite, favoritePhotos, onPhotoClick }) => 
   return (
     <ul className="photo-list">
 
+      {/* Map through the "photos" array and create a "PhotoListItem" component for each item. */}
       {photos.map((photoData) => (
         <PhotoListItem
-         key={photoData.id}
-         data={photoData}
-         toggleFavorite={toggleFavorite}
-         favoritePhotos={favoritePhotos}
-         onPhotoClick={onPhotoClick}
+          key={photoData.id}
+          data={photoData}
+          toggleFavorite={toggleFavorite}
+          favoritePhotos={favoritePhotos}
+          onPhotoClick={onPhotoClick}
         />
       ))}
     </ul>

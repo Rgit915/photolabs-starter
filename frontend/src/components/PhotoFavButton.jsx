@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import FavIcon from './FavIcon';
 import '../styles/PhotoFavButton.scss';
 
-function PhotoFavButton({ initialSelected = false , photoId, toggleFavorite}) {
+function PhotoFavButton({ initialSelected = false, photoId, toggleFavorite }) {
 
   // Toggle favorite when the icon is clicked
   const handleIconClick = () => {
@@ -16,6 +16,7 @@ function PhotoFavButton({ initialSelected = false , photoId, toggleFavorite}) {
         className={`photo-list__fav-icon-svg ${initialSelected ? 'active' : 'inactive'}`}
         onClick={handleIconClick}
       >
+        {/* Render the 'FavIcon' component and pass the 'initialSelected' prop to it. */}
         <FavIcon selected={initialSelected} />
       </div>
     </div>
